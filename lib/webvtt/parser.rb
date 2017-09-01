@@ -58,7 +58,7 @@ module WebVTT
     def parse(content)
       # remove bom first
       content.gsub!("\uFEFF", '')
-      
+
       cues = content.split(/\n\n+/)
 
       @header = cues.shift
@@ -155,7 +155,7 @@ module WebVTT
       lines = @content.split("\n").map(&:strip)
 
       # it's a note, ignore
-      return if lines[0] =~ /NOTE/
+      return if lines.empty? || lines[0] =~ /NOTE/
 
       if !lines[0].include?("-->")
         @identifier = lines[0]
