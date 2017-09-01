@@ -79,16 +79,12 @@ module WebVTT
   end
 
   class File < Blob
-    attr_reader :path, :filename
+    attr_reader :path
 
     def initialize(webvtt_file)
-      if !::File.exists?(webvtt_file)
-        raise InputError, "WebVTT file not found"
-      end
-
       @path = webvtt_file
-      @filename = ::File.basename(@path)
-      super(::File.read(webvtt_file))
+
+      super(webvtt_file.read.force_encoding('utf-8'))
     end
 
     def save(output=nil)
